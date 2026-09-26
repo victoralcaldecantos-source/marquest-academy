@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>MarQuest Academy</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;background:#061722;color:#eaf8ff}
+header{padding:14px 20px;background:#082332;border-bottom:1px solid #1b536c;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
+.logo{font-size:22px;font-weight:900;color:#49d4ff}.stats{display:flex;gap:8px}.pill{background:#10374a;border:1px solid #27667e;border-radius:20px;padding:8px 12px}
+nav{display:flex;gap:7px;overflow:auto;padding:9px;background:#071d2a;border-bottom:1px solid #17475b}nav button,.btn{border:1px solid #2a6179;background:#10364a;color:#eaf8ff;padding:10px 14px;border-radius:11px;font-weight:800;white-space:nowrap;cursor:pointer}.primary{background:#27b9ed;color:#032031;border:0}
+main{max-width:1250px;margin:auto;padding:20px}.view{display:none}.view.active{display:block}.hero,.panel{background:linear-gradient(145deg,#092537,#071923);border:1px solid #24586d;border-radius:20px;padding:22px;margin-bottom:18px}.hero h1{font-size:clamp(32px,6vw,64px);margin:8px 0}.muted{color:#9ec0ce}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.map{background:#8ec7d8;border-radius:16px;overflow:hidden;border:2px solid #27677e}.map svg{width:100%;height:auto;display:block}.land{fill:#d9d0a6;stroke:#536b61;stroke-width:3}.island{fill:#d9d0a6;stroke:#536b61;stroke-width:2}.river{fill:none;stroke:#3c8fb2;stroke-width:4}.lake{fill:#4d9fba;stroke:#dff7ff;stroke-width:2}.maplabel{font-size:17px;font-weight:800;fill:#123247;paint-order:stroke;stroke:#e7f7fb;stroke-width:5px}.seawater{font-size:15px;font-weight:900;fill:#15506a;paint-order:stroke;stroke:#dff7ff;stroke-width:4px}.hydro{font-size:14px;font-weight:800;fill:#17607a;paint-order:stroke;stroke:#dff7ff;stroke-width:4px}
+.item{background:#0b2938;border:1px solid #24566b;border-radius:14px;padding:16px}.item h3{margin-top:0}.tag{display:inline-block;padding:5px 9px;border-radius:9px;background:#163f52;color:#7be0ff;font-size:12px;font-weight:900}
+.flash{min-height:120px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:24px;font-weight:900}.answers{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}.answers button{padding:14px;border-radius:12px;border:1px solid #2b627a;background:#10384b;color:white;font-weight:800}
+.players{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}.player{background:linear-gradient(145deg,#173b4d,#091e2a);border:1px solid #3a7186;border-radius:15px;padding:13px;min-height:150px;position:relative}.player .ov{font-size:34px;font-weight:900}.player .pname{font-size:17px;font-weight:900;margin-top:12px}.player .club{color:#91c4d6;font-size:13px}.player .pos{font-size:12px;color:#7eb3c5;margin-top:7px}.design{position:absolute;right:10px;top:10px;font-size:10px;font-weight:900;color:#6ee1ff}
+.pack{background:linear-gradient(160deg,#123c50,#091c29);border:1px solid #2e7088;border-radius:18px;padding:18px;text-align:center}.pack .art{font-size:45px}.queue{display:flex;gap:10px;flex-wrap:wrap}.queue .panel{margin:0;flex:1;min-width:230px}
+select{background:#0d3041;color:white;border:1px solid #2b667d;border-radius:10px;padding:12px;width:100%;margin:8px 0}footer{text-align:center;color:#789baa;padding:30px}
+@media(max-width:650px){main{padding:12px}.answers{grid-template-columns:1fr}.hero h1{font-size:36px}}
+</style>
+</head>
+<body>
+<header><div class="logo">🌊 MARQUEST ACADEMY ⚽</div><div class="stats"><span class="pill">🪙 <b id="coins">1200</b></span><span class="pill">⭐ <b id="xp">0</b></span></div></header>
+<nav id="nav"></nav>
+<main>
+<section id="home" class="view active"><div class="hero"><span class="tag">GEOGRAFÍA EUROPEA</span><h1>Domina los 11 mares de Europa.</h1><p class="muted">Mapa, esquemas, flashcards y exámenes. Tus aciertos dan XP y monedas virtuales para el manager.</p><button class="btn primary" onclick="show('map')">🌊 Empezar</button> <button class="btn" onclick="show('study')">📚 Estudiar</button></div><div class="grid"><div class="item"><h3>01 · Ubicación</h3><p class="muted">Los 11 mares, ríos y lagos.</p></div><div class="item"><h3>02 · Memoria</h3><p class="muted">Esquemas y flashcards.</p></div><div class="item"><h3>03 · Exámenes</h3><p class="muted">Practica y gana recompensas.</p></div><div class="item"><h3>04 · Manager</h3><p class="muted">Sobres, cartas y estadio.</p></div></div></section>
+
+<section id="map" class="view"><div class="panel"><h2>🌊 Mapa de Europa</h2><p class="muted">Los 11 mares están escritos en el mapa para estudiar. Los lagos y ríos también aparecen.</p>
+<div class="map"><svg viewBox="0 0 1000 690"><rect width="1000" height="690" fill="#8ec7d8"/>
+<path class="land" d="M255 55L330 45 385 75 430 65 465 95 505 100 545 135 590 130 625 155 660 170 700 185 735 215 780 235 815 275 855 290 885 330 865 365 820 380 795 410 750 425 730 455 700 465 670 495 625 500 600 530 560 520 535 490 500 480 470 455 435 450 410 425 390 400 365 385 345 350 320 325 300 290 275 250 250 205 235 160Z"/>
+<path class="land" d="M210 60L190 35 160 25 135 45 120 85 130 125 150 150 175 135 195 110Z"/>
+<path class="island" d="M120 225L145 205 175 215 185 245 165 270 135 260Z"/><path class="island" d="M90 295L115 285 135 300 130 330 105 335 85 315Z"/>
+<path class="river" d="M410 165C430 210 420 255 390 300S370 370 400 420"/><path class="river" d="M520 190C500 240 505 300 535 345S555 400 540 470"/><path class="river" d="M610 205C585 250 590 310 620 355S650 420 640 480"/><path class="river" d="M700 230C675 275 680 320 705 360S740 415 730 470"/><path class="river" d="M770 255C745 300 750 340 780 380S800 420 795 450"/>
+<ellipse class="lake" cx="350" cy="150" rx="30" ry="18"/><ellipse class="lake" cx="385" cy="125" rx="24" ry="15"/><ellipse class="lake" cx="300" cy="205" rx="22" ry="12"/>
+<text class="maplabel" x="65" y="100">ISLANDIA</text><text class="maplabel" x="235" y="115">NORUEGA</text><text class="maplabel" x="285" y="300">REINO UNIDO</text><text class="maplabel" x="420" y="315">ALEMANIA</text><text class="maplabel" x="500" y="350">POLONIA</text><text class="maplabel" x="650" y="340">UCRANIA</text><text class="maplabel" x="700" y="410">RUMANÍA</text><text class="maplabel" x="445" y="430">ITALIA</text><text class="maplabel" x="550" y="430">GRECIA</text><text class="maplabel" x="720" y="465">TURQUÍA</text>
+<text class="seawater" x="470" y="80">MAR DE BARENTS</text><text class="seawater" x="285" y="185">MAR DE NORUEGA</text><text class="seawater" x="280" y="270">MAR DEL NORTE</text><text class="seawater" x="455" y="205">MAR BÁLTICO</text><text class="seawater" x="475" y="540">MAR MEDITERRÁNEO</text><text class="seawater" x="500" y="455">MAR ADRIÁTICO</text><text class="seawater" x="575" y="470">MAR EGEO</text><text class="seawater" x="650" y="445">MAR DE MÁRMARA</text><text class="seawater" x="685" y="390">MAR NEGRO</text><text class="seawater" x="735" y="335">MAR DE AZOV</text><text class="seawater" x="875" y="315">MAR CASPIO</text>
+<text class="hydro" x="315" y="145">Ládoga</text><text class="hydro" x="360" y="120">Onega</text><text class="hydro" x="270" y="205">Peipus</text><text class="hydro" x="375" y="245">Rin</text><text class="hydro" x="470" y="275">Elba</text><text class="hydro" x="520" y="320">Danubio</text><text class="hydro" x="610" y="300">Dniéper</text><text class="hydro" x="665" y="300">Don</text><text class="hydro" x="735" y="390">Volga</text></svg></div></div>
+<div class="panel"><h2>🧠 Flashcard</h2><div id="flash" class="flash"></div><button class="btn" onclick="nextFlash()">🔄 Cambiar</button></div></section>
+
+<section id="study" class="view"><div class="panel"><h2>📚 Esquemas de estudio</h2><div id="schemes" class="grid"></div></div><div class="panel"><h2>🏞️ Ríos y lagos</h2><div class="grid"><div class="item"><h3>Ríos</h3><p>Rin · Sena · Loira · Elba · Danubio · Dniéper · Dniéster · Don · Volga</p></div><div class="item"><h3>Lagos</h3><p>Ládoga · Onega · Peipus</p></div></div></div></section>
+
+<section id="exam" class="view"><div class="panel"><h2>📝 Exámenes</h2><div id="examBox"></div><button class="btn primary" onclick="newExam()">Nuevo examen</button></div></section>
+
+<section id="club" class="view"><div class="panel"><h2>🏟️ Mi club</h2><select id="clubSelect"></select><button class="btn primary" onclick="chooseClub()">Guardar club y crear plantilla</button><p class="muted">El sobre inicial es gratuito. Todas las monedas son virtuales.</p></div><div class="panel"><h2>👥 Plantilla</h2><div id="squad" class="players"></div></div></section>
+
+<section id="packs" class="view"><div class="panel"><h2>🎁 Sobres</h2><div id="packGrid" class="grid"></div></div><div class="panel"><h2>📦 Sobres pendientes</h2><div id="queue" class="queue"></div></div><div class="panel"><h2>✨ Colección</h2><div id="collection" class="players"></div></div></section>
+
+<section id="tactics" class="view"><div class="panel"><h2>🧠 Tácticas</h2><p class="muted">Modo secundario del manager.</p><div id="formation" class="grid"></div></div></section>
+<section id="stadium" class="view"><div class="panel"><h2>🏗️ Estadio</h2><div class="item"><h3 id="stadTitle">Nivel 1</h3><p>Mejora tu estadio con monedas virtuales.</p><button class="btn primary" onclick="upgrade()">Mejorar</button></div></div></section>
+<section id="custom" class="view"><div class="panel"><h2>🎨 Personalizar</h2><p class="muted">Tu perfil de MarQuest Academy.</p><input id="managerName" placeholder="Nombre de manager" style="width:100%;padding:12px;border-radius:10px;border:1px solid #2b667d;background:#0d3041;color:white"><br><br><button class="btn primary" onclick="saveName()">Guardar</button></div></section>
+</main><footer>MarQuest Academy · geografía primero · manager secundario</footer>
+
+<script>
+const clubs=["FC Barcelona","Real Madrid","Atlético de Madrid","Athletic Club","CA Osasuna","Celta","Deportivo Alavés","Elche CF","Getafe CF","Levante UD","Málaga CF","R. Racing Club","Rayo Vallecano","RC Deportivo","RCD Espanyol de Barcelona","Real Betis","Real Sociedad","Sevilla FC","Valencia CF","Villarreal CF"];
+const names={
+"FC Barcelona":["Joan García","Pau Cubarsí","Jules Koundé","Alejandro Balde","Pedri","Gavi","Frenkie de Jong","Dani Olmo","Raphinha","Lamine Yamal","Ferran"],
+"Real Madrid":["Courtois","Carvajal","Militão","Rüdiger","Bellingham","Valverde","Arda Güler","Vini Jr.","Mbappé","Rodrygo","Fran García"],
+"Atlético de Madrid":["Oblak","Molina","Le Normand","Giménez","Koke","Llorente","De Paul","Julián Alvarez","Griezmann","Sørloth","Lino"],
+"Athletic Club":["Unai Simón","Yuri Berchiche","Dani Vivian","Paredes","Iñaki Williams","Sancet","Galarreta","Berenguer","Guruzeta","Nico Williams","Adu Ares"],
+"Real Betis":["Álvaro Valles","Bellerín","Diego Llorente","Natan","Marc Roca","Isco","Lo Celso","Abde","Antony","Cucho Hernández","Bakambu"],
+"Sevilla FC":["Odysseas","Kike Salas","Badé","Juanlu","Agoumé","Gudelj","Sow","Ejuke","Isaac Romero","Dodi Lukebakio","Stassin"],
+"Valencia CF":["Dimitrievski","Gayà","Maffeo","Diakhaby","Tárrega","Pepelu","Javi Guerra","Danjuma","Hugo Duro","Sadiq","Diego López"]
+};
+clubs.filter(c=>!names[c]).forEach(c=>names[c]=Array.from({length:11},(_,i)=>"Jugador "+(i+1)));
+const designs=["BRONCE","PLATA","ORO","DIAMANTE","ÉLITE","HÉROE","RAYO","CENTURIÓN","TITÁN","FÉNIX","AURORA","ECLIPSE","NEÓN","HIELO","INFERNO","GALAXIA","REAL","FUTURO","MASTER","MARQUEST"];
+const packs=[["laliga","LALIGA",1800,"⚽"],["premium","Premium",4500,"💎"],["gold","Gold",6500,"🥇"],["elite","Elite",9000,"✨"],["diamond","Diamond",12500,"💠"],["hero","Hero",15000,"🦸"],["lightning","Lightning",18000,"⚡"],["centurion","Centurion",22000,"🏛️"],["titan","Titan",26000,"🗿"],["phoenix","Phoenix",30000,"🔥"],["aurora","Aurora",35000,"🌌"],["eclipse","Eclipse",40000,"🌑"],["neon","Neon",45000,"💡"],["ice","Ice",50000,"❄️"],["inferno","Inferno",60000,"🔥"],["galaxy","Galaxy",70000,"🌠"],["royal","Royal",85000,"👑"],["future","Future",100000,"🚀"],["master","Master",125000,"🏆"]];
+let s=JSON.parse(localStorage.getItem("marquest_final_v11")||"null")||{club:"",coins:1200,xp:0,stad:1,players:[],queue:[],manager:""};
+function save(){localStorage.setItem("marquest_final_v11",JSON.stringify(s));updateStats()}
+function updateStats(){coins.textContent=s.coins.toLocaleString("es-ES");xp.textContent=s.xp}
+const navItems=[["home","Inicio"],["map","🌊 Mapa"],["study","📚 Esquemas"],["exam","📝 Exámenes"],["club","🏟️ Club"],["packs","🎁 Sobres"],["tactics","🧠 Tácticas"],["stadium","🏗️ Estadio"],["custom","🎨 Personalizar"]];
+nav.innerHTML=navItems.map(x=>`<button onclick="show('${x[0]}')">${x[1]}</button>`).join("");
+clubSelect.innerHTML=clubs.map(c=>`<option>${c}</option>`).join("");
+function show(id){document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));document.getElementById(id).classList.add("active");if(id==="club")renderSquad();if(id==="packs")renderPacks();if(id==="tactics")renderFormation();if(id==="stadium")stadTitle.textContent="Nivel "+s.stad}
+function chooseClub(){s.club=clubSelect.value;if(!s.players.length){s.players=names[s.club].map((n,i)=>({name:n,grl:55+i%8,design:"BRONCE"}));s.queue.push({name:"Sobre inicial",type:"starter"})}save();renderSquad();alert("Plantilla creada con 11 jugadores.");}
+function card(p,i){return `<div class="player"><span class="design">${p.design}</span><div class="ov">${p.grl}</div><div class="pname">${p.name}</div><div class="club">${s.club}</div><div class="pos">${["POR","DEF","MED","ATA"][i%4]} · carta limpia</div></div>`}
+function renderSquad(){squad.innerHTML=s.players.length?s.players.map(card).join(""):`<div class="item"><b>Sin plantilla.</b><p class="muted">Elige tu club para crearla.</p></div>`;clubSelect.value=s.club||clubs[0]}
+function renderPacks(){packGrid.innerHTML=packs.map((p,i)=>`<div class="pack"><div class="art">${p[3]}</div><h3>${p[1]}</h3><p>🪙 ${p[2].toLocaleString("es-ES")}</p><button class="btn primary" onclick="buyPack(${i})">Comprar</button></div>`).join("");queue.innerHTML=s.queue.length?s.queue.map((q,i)=>`<div class="panel"><b>📦 ${q.name}</b><button class="btn primary" style="float:right" onclick="openPack(${i})">Abrir</button></div>`).join(""):"<p class='muted'>No hay sobres pendientes.</p>";collection.innerHTML=s.players.map(card).join("")}
+function buyPack(i){if(!s.club){show("club");return}let p=packs[i];if(s.coins<p[2])return alert("No tienes suficientes monedas virtuales.");s.coins-=p[2];s.queue.push({name:p[1],type:p[0],idx:i});save();renderPacks()}
+function openPack(i){let q=s.queue.splice(i,1)[0],a=names[s.club],p={name:a[Math.floor(Math.random()*a.length)],grl:Math.min(92,58+q.idx*2+Math.floor(Math.random()*8)),design:designs[Math.min(19,q.idx)]};s.players.unshift(p);s.xp+=80;save();renderPacks();alert("✨ Carta obtenida: "+p.name+" · "+p.grl+" GRL · "+p.design)}
+function renderFormation(){formation.innerHTML=s.players.slice(0,11).map((p,i)=>`<div class="item"><b>${i+1}. ${p.name}</b><br><span class="muted">${["POR","DEF","DEF","DEF","DEF","MED","MED","MED","ATA","ATA","ATA"][i]} · ${p.grl} GRL</span></div>`).join("")}
+function upgrade(){let cost=s.stad*1500;if(s.coins<cost)return alert("Te faltan monedas virtuales.");s.coins-=cost;s.stad++;save();stadTitle.textContent="Nivel "+s.stad}
+function saveName(){s.manager=managerName.value;save();alert("Perfil guardado.")}
+const seaInfo=[["Mar de Barents","Al norte de Noruega y Rusia.","Barents = extremo norte de Europa."],["Mar de Noruega","Entre Noruega, Islandia y Escocia.","Noruega → mar de Noruega."],["Mar del Norte","Entre Reino Unido, Noruega, Dinamarca, Alemania y Países Bajos.","Norte de Europa."],["Mar Báltico","Entre Escandinavia y Europa del norte.","Báltico = mar interior del norte."],["Mar Mediterráneo","Al sur de Europa.","Mediterráneo = gran mar del sur."],["Mar Adriático","Entre Italia y los Balcanes.","Adriático = lado oriental de Italia."],["Mar Egeo","Entre Grecia y Turquía.","Egeo = Grecia/Turquía."],["Mar de Mármara","Entre el Egeo y el Negro, en Turquía.","Mármara conecta ambos."],["Mar Negro","Al norte de Turquía.","Negro → entre Europa oriental y Turquía."],["Mar de Azov","Al norte del Mar Negro.","Azov está más al noreste."],["Mar Caspio","Al este del Cáucaso.","Caspio = gran mar cerrado del este."]];
+schemes.innerHTML=seaInfo.map(x=>`<div class="item"><span class="tag">${x[0]}</span><h3>📍 Ubicación</h3><p>${x[1]}</p><h3>🧠 Regla</h3><p class="muted">${x[2]}</p></div>`).join("");
+let fi=0;function nextFlash(){let x=seaInfo[fi++%seaInfo.length];flash.innerHTML=`<div>${x[0]}<br><small class="muted">${x[1]}</small></div>`}nextFlash();
+const examQ=[...seaInfo.map(x=>({q:"¿Dónde se encuentra el "+x[0]+"?",a:x[1]})),{q:"¿Qué tres lagos estudiamos?",a:"Ládoga, Onega y Peipus"},{q:"Nombra tres ríos de la lista.",a:"Rin, Sena, Loira, Elba, Danubio, Dniéper, Dniéster, Don o Volga"}];let eq=0,score=0;
+function newExam(){eq=0;score=0;renderExam()}function renderExam(){if(eq>=examQ.length){examBox.innerHTML=`<h3>Examen terminado</h3><p>Resultado: ${score}/${examQ.length}</p>`;if(score) {s.xp+=score*30;s.coins+=score*100;save()}return}let q=examQ[eq];examBox.innerHTML=`<h3>${eq+1}/${examQ.length} · ${q.q}</h3><input id="ans" style="width:100%;padding:13px;border-radius:10px;border:1px solid #2b667d;background:#0d3041;color:white" placeholder="Escribe tu respuesta"><br><br><button class="btn primary" onclick="checkExam()">Comprobar</button>`}
+function checkExam(){let a=ans.value.toLowerCase();let target=examQ[eq].a.toLowerCase();if(a&&((target.includes(a)&&a.length>4)||(a.includes(target)&&target.length>4))){score++;alert("✅ Correcto")}else alert("❌ Repasa: "+examQ[eq].a);eq++;renderExam()}
+renderSquad();updateStats();newExam();
+</script></body></html>
